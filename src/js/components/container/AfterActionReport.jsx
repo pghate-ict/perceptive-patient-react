@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useImperativeHandle } from 'react';
 
 class AfterActionReport extends React.Component{
     constructor(props){
         super(props);
+        
     }
 
     render(){

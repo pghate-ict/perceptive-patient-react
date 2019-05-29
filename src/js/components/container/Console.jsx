@@ -1,9 +1,12 @@
 import React from "react";
 import PerceptiveCamera from "./PerceptiveCamera";
+import {observer} from "mobx-react";
+
 
 class Console extends React.Component{
     constructor(props){
         super(props);
+        observer(this);
     }
 
     render(){
