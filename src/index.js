@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
-import TestContainer from './js/components/container/TestContainer.jsx'
+import PerceptivePatient from './js/components/container/PerceptivePatient.jsx'
 
 const App = () => (
     <div>
-        <TestContainer/>
+        <PerceptivePatient/>
     </div>
 )
 

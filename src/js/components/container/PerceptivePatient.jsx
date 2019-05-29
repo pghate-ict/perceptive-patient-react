@@ -1,16 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Console from "./Console";
+import AfterActionReport from "./AfterActionReport";
 
-class PerceptivePatient extends React.Component{
+// Presentational Components
+import NavigationBar from '../presentational/NavigationBar.jsx';
 
-    constructor(props){
+class PerceptivePatient extends React.Component {
+
+    constructor(props) {
         super(props);
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div>
-
+                <NavigationBar></NavigationBar>
+                <Console></Console>
             </div>
         )
     }
