@@ -27,3 +27,18 @@ export const setRecorderState = recorderState => ({
     type : 'SET_RECORDER_STATE',
     recorderState
 });
+
+export const setRecordedBlob = recorderBlob => ({
+    type : 'SET_RECORDER_BLOB',
+    recorderBlob
+});
+
+export const setSessionState = sessionState => ({
+    type : 'SET_SESSION_STATE',
+    sessionState
+});
+
+export const setSensingState = sensingState => ({
+    type : 'SET_SENSING_STATE',
+    sensingState
+});

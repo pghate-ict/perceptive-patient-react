@@ -2,7 +2,9 @@
 const initialState = {
     eventList : [],
     timeline : [],
-    recorderState : null
+    recorderState : null,
+    sessionState : null,
+    sensingState : null
 }
 
 const session = (state = initialState, action) => {
@@ -37,6 +39,21 @@ const session = (state = initialState, action) => {
                 recorderState : action.recorderState
             });
         
+        case 'SET_SESSION_STATE':
+            return Object.assign({}, state, {
+                sessionState : action.sessionState
+            });
+
+        case 'SET_SENSING_STATE':
+            return Object.assign({}, state, {
+                sensingState : action.sensingState
+            });
+        
+        case 'SET_RECORDED_BLOB':
+            return Object.assign({}, state, {
+                recordedBlob : action.recordedBlob
+            });
+
         default:
             return state
     }

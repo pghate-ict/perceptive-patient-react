@@ -1,23 +1,18 @@
 import React from "react";
 import Webcam from "react-webcam";
 import RecordRTC from "recordrtc";
-import {connect} from "react-redux";
-import {setRecorderState} from "../../actions/session";
-import {recorderStartedEvent} from "../../events/events";
-
-const recorderState = {
-    STOPPED : 'STOPPED',
-    STARTED : 'STARTED',
-    PAUSED : 'PAUSED'
-}
+import { connect } from "react-redux";
+import { setRecorderState } from "../../actions/session";
+import { recorderStartedEvent } from "../../events/events";
+import { recorderState, sessionState } from "../../helpers/states";
 
 const mapDispatchToProps = dispatch => {
-    return {
-        setRecorderState: (recorderState) => {
-            dispatch(setRecorderState(recorderState));
-        }
+  return {
+    setRecorderState: recorderState => {
+      dispatch(setRecorderState(recorderState));
     }
-}
+  };
+};
 
 class PerceptiveCamera extends React.Component {
   constructor(props) {
@@ -29,21 +24,19 @@ class PerceptiveCamera extends React.Component {
       stream: null,
       video: null,
       recorder: null,
-      recorderState : recorderState.STOPPED
+      recorderState: recorderState.STOPPED
     };
     this.hasGetUserMedia = this.hasGetUserMedia.bind(this);
     this.setupWebcam = this.setupWebcam.bind(this);
     this.startRecorder = this.startRecorder.bind(this);
+    this.stopRecorder = this.stopRecorder.bind(this);
   }
 
-
-
-  componentDidMount(){
+  componentDidMount() {
     this.setState({
-        video : this.refs.video
+      video: this.refs.video
     });
     this.setupWebcam();
-    this.startRecorder();
   }
 
   hasGetUserMedia() {
@@ -53,42 +46,49 @@ class PerceptiveCamera extends React.Component {
   setupWebcam() {
     if (this.hasGetUserMedia()) {
       //Setup
-      navigator.mediaDevices.getUserMedia(this.videoConstraints)
-      .then((stream)=>{
-         this.setState({
-             stream : stream
-         })
-         this.refs.video.srcObject = stream;
-         this.refs.video.play();
+      navigator.mediaDevices
+        .getUserMedia(this.videoConstraints)
+        .then(stream => {
+          this.setState({
+            stream: stream
+          });
+          this.refs.video.srcObject = stream;
+          this.refs.video.play();
 
-         let recorder = new RecordRTC.RecordRTCPromisesHandler(stream,{
-            type : 'video'
-         });
-         this.setState({
-             recorder : recorder
-         })
-      })
-      .catch((err)=>{
+          let recorder = new RecordRTC.RecordRTCPromisesHandler(stream, {
+            type: "video"
+          });
+          this.setState({
+            recorder: recorder
+          });
+          this.startRecorder();
+        })
+        .catch(err => {
           console.log(err);
-      })
+        });
     } else {
       alert("Webcam not supported!");
     }
   }
 
-  startRecorder(){
+  startRecorder() {
+    //local
     this.setState({
-        recorderState : recorderState.STARTED
-    })
+      recorderState: recorderState.STARTED
+    });
+    //global store
     this.props.setRecorderState(recorderState.STARTED);
+
   }
 
   render() {
-    return <video ref="video"
-        width = {this.props.width}
-        height = {this.props.height}
-    ></video>
+    return (
+      <video ref="video" width={this.props.width} height={this.props.height} />
+    );
   }
 }
 
-export default connect(null, mapDispatchToProps)(PerceptiveCamera);
+export default connect(
+  null,
+  mapDispatchToProps
+)(PerceptiveCamera);
