@@ -8,6 +8,7 @@ import store from './js/store/store';
 // Helper classes
 import SPSHelper from './js/helpers/sps';
 
+
 SPSHelper.startSession().then(() => {
     console.log("Session Started with Polling!");
 });
