@@ -53,6 +53,10 @@ const session = (state = initialState, action) => {
             return Object.assign({}, state, {
                 recordedBlob : action.recordedBlob
             });
+        case 'ADD_ACTION_UNITS':
+            return Object.assign({}, state, {
+                actionUnits : action.actionUnits
+            });
 
         default:
             return state

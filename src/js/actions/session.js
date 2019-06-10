@@ -42,3 +42,8 @@ export const setSensingState = sensingState => ({
     type : 'SET_SENSING_STATE',
     sensingState
 });
+
+export const addActionUnits = actionUnits => ({
+    type : 'ADD_ACTION_UNITS',
+    actionUnits
+})
