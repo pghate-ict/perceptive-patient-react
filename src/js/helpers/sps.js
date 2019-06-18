@@ -68,7 +68,7 @@ const SPSHelper = {
 
     startSession: async () => {
         SPSAPI.getRunningSessionId().then(result => {
-            //todo
+            
             console.log("Session Started-> ", result.data);
             store.dispatch(setSessionId(result.data));
             SPSAPI.poll(result.data, 0);

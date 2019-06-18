@@ -11,6 +11,9 @@ const mapDispatchToProps = dispatch => {
   return {
     setRecorderState: recorderState => {
       dispatch(setRecorderState(recorderState));
+    },
+    addActionUnits : actionUnits => {
+      displatch(addActionUnits(actionUnits));
     }
   };
 };
@@ -103,15 +106,10 @@ class PerceptiveCamera extends React.Component {
   takeScreenshot(){
     let canvas = this.state.canvas;
     let context = canvas.getContext('2d');
-    context.drawImage(this.state.video, 0, 0, 640, 360);
+    context.drawImage(this.state.video, 0, 0, 640, 480);
     let data = canvas.toDataURL("image/jpeg");
     let b64 = this.trimUrlMetaData(data);
-    SenseHelper.getFacialLandmarks(b64).then(()=>{
-      console.log("Sent Facial Landmarks");
-    })
-    .catch((err)=>{
-      console.log(err);
-    })
+    SenseHelper.getFacialLandmarks(b64).catch(error=>console.log(error));
   }
 
   trimUrlMetaData(url) {

@@ -3,6 +3,7 @@ import PerceptiveCamera from "./PerceptiveCamera";
 import ActionButtons from "./ActionButtons";
 import Grid from '@material-ui/core/Grid';
 import {connect} from 'react-redux';
+import ActionUnitChart from './ActionUnitChart';
 
 const mapStateToProps = state => ({
     sessionId : state.sessionId,
@@ -19,8 +20,11 @@ class Console extends React.Component {
         return (
             <div>
                 <Grid container justify="center" spacing={2}>
-                    <Grid item xs={6} md={6} lg={6}><PerceptiveCamera width={640} height={360} /></Grid>
+                    <Grid item xs={6} md={6} lg={6}><PerceptiveCamera width={640} height={480} /></Grid>
                     <Grid item xs={6} md={6} lg={6}><ActionButtons /></Grid>
+                </Grid>
+                <Grid container justify="center" spacing={2}>
+                    <Grid item xs={12} md={12} lg={12}><ActionUnitChart/></Grid>
                 </Grid>
             </div>
         )

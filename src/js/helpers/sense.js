@@ -1,4 +1,6 @@
 import axios from 'axios';
+import {addActionUnits} from '../actions/session';
+import store from '../store/store';
 
 
 export const SENSE_API_URL = "http://localhost:3030/"
@@ -8,7 +10,7 @@ export const SenseHelper = {
         let results = await axios.post(SENSE_API_URL, {
             image: b64
         });
-        console.log(results);
+        store.dispatch(addActionUnits(results.data.au_confidences));
     }
 }
 
