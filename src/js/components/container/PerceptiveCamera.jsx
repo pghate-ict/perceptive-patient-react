@@ -50,6 +50,7 @@ class PerceptiveCamera extends React.Component {
     this.takeScreenshot = this.takeScreenshot.bind(this);
     this.trimUrlMetaData = this.trimUrlMetaData.bind(this);
     this.handleMSRoutine = this.handleMSRoutine.bind(this);
+    this.generateReport = this.generateReport.bind(this);
   }
 
   componentDidMount() {
@@ -122,7 +123,13 @@ class PerceptiveCamera extends React.Component {
     let data = canvas.toDataURL("image/jpeg");
     let b64 = this.trimUrlMetaData(data);
     SenseHelper.getFacialLandmarks(b64).catch(error=>console.log(error));
+    //For Testing
   }
+
+  generateReport(){
+    SenseHelper.computePerception();
+  }
+
 
   handleMSRoutine(){
     if(this.state.msRoutine == null){
@@ -167,7 +174,7 @@ class PerceptiveCamera extends React.Component {
             <Button
               variant="contained"
               color="primary"
-              onClick={this.createReport}
+              onClick={this.generateReport}
             >
               Generate Report
             </Button>
