@@ -2,7 +2,7 @@
 const initialState = {
     eventList: [],
     timeline: [],
-    actionUnits: Array(17).fill(0), 
+    actionUnits: [Array(17).fill(0)], 
     recorderState: null,
     sessionState: null,
     sensingState: null
