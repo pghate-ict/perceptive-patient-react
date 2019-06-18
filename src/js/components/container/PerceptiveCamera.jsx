@@ -39,6 +39,7 @@ class PerceptiveCamera extends React.Component {
       video: null,
       recorder: null,
       canvas : null,
+      msRoutine : null,
       recorderState: recorderState.STOPPED
     };
     this.hasGetUserMedia = this.hasGetUserMedia.bind(this);
@@ -48,6 +49,7 @@ class PerceptiveCamera extends React.Component {
     this.setupCanvas = this.setupCanvas.bind(this);
     this.takeScreenshot = this.takeScreenshot.bind(this);
     this.trimUrlMetaData = this.trimUrlMetaData.bind(this);
+    this.handleMSRoutine = this.handleMSRoutine.bind(this);
   }
 
   componentDidMount() {
@@ -122,6 +124,17 @@ class PerceptiveCamera extends React.Component {
     SenseHelper.getFacialLandmarks(b64).catch(error=>console.log(error));
   }
 
+  handleMSRoutine(){
+    if(this.state.msRoutine == null){
+      this.state.msRoutine = setInterval(this.takeScreenshot, 500);
+    } else {
+      clearInterval(this.state.msRoutine);
+      this.state.msRoutine = null;
+    }
+  }
+
+
+
   trimUrlMetaData(url) {
     let urlString = url.toString();
     let base64string = urlString.match(/\/9j\/.*/);
@@ -141,7 +154,7 @@ class PerceptiveCamera extends React.Component {
             </Typography>
           </Grid>
           <Grid item xs={3}>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={this.handleMSRoutine}>
               Start Monitoring
             </Button>
           </Grid>
