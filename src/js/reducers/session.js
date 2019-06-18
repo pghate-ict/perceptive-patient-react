@@ -62,7 +62,7 @@ const session = (state = initialState, action) => {
 
             if(action.actionUnits === undefined){
                 newArray = state.actionUnits.concat([Array(17).fill(0)]);
-            } else if(state.actionUnits.length >= 30){
+            } else if(state.actionUnits.length >= 60){
                 newArray = state.actionUnits.slice(1,state.actionUnits.length).concat([action.actionUnits]);
             } else {
                 newArray = state.actionUnits.concat([action.actionUnits]);

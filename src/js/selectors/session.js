@@ -28,6 +28,7 @@ export const latestActionUnitSelector = createSelector(
             { name: "AU26"},
             { name: "AU28"}
         ];
+
         for(var i=0; i<latestValues.length; i++){
             dataObject[i].value = latestValues[i];
         }
