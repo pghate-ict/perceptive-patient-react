@@ -6,6 +6,9 @@ import { setRecorderState } from "../../actions/session";
 import { recorderStartedEvent } from "../../events/events";
 import { recorderState, sessionState } from "../../helpers/states";
 import {SenseHelper} from '../../helpers/sense';
+import Grid from '@material-ui/core/Grid';
+import { Typography } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -17,6 +20,13 @@ const mapDispatchToProps = dispatch => {
     }
   };
 };
+
+const mapStateToProps = state => ({
+  sessionId: state.sessionId,
+  eventList: state.eventList,
+  sessionUrl: state.url,
+  timeline: state.timeline
+});
 
 class PerceptiveCamera extends React.Component {
   constructor(props) {
@@ -122,12 +132,41 @@ class PerceptiveCamera extends React.Component {
 
   render() {
     return (
-      <video ref="video" width={this.props.width} height={this.props.height} onClick={this.takeScreenshot}/>
+      <div>
+        <video ref="video" width={this.props.width} height={this.props.height} onClick={this.takeScreenshot}/>
+        <Grid container justify="center" direction={"row"} spacing={1}>
+          <Grid item xs={3}>
+            <Typography variant="h5">
+              Session ID : {this.props.sessionId}
+            </Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Button variant="contained" color="primary">
+              Start Monitoring
+            </Button>
+          </Grid>
+          <Grid item xs={3}>
+            <Button variant="contained" color="primary">
+              Stop Monitoring
+            </Button>
+          </Grid>
+          <Grid item xs={3}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.createReport}
+            >
+              Generate Report
+            </Button>
+          </Grid>
+        </Grid>
+      </div>
+      
     );
   }
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(PerceptiveCamera);
