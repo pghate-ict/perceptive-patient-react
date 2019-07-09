@@ -27,10 +27,10 @@ const EXPRESSIONS = {
 };
 
 const KEY_2_EXP = {
-  227: EXPRESSIONS.HAPPY,
-  16387: EXPRESSIONS.SURPRISE,
-  3077: EXPRESSIONS.SADNESS,
-  12: EXPRESSIONS.ANGER
+  4384: EXPRESSIONS.HAPPY,
+  256: EXPRESSIONS.SURPRISE,
+  96: EXPRESSIONS.SADNESS,
+  24672: EXPRESSIONS.ANGER
 };
 
 class Perception {
@@ -57,10 +57,10 @@ class Perception {
 
     // Number of occurences for each expression activation
     this.windowMap = {
-      227: 0,
-      16387: 0,
-      3077: 0,
-      12: 0
+      4384: 0,
+      256: 0,
+      96: 0,
+      24672: 0
     };
   }
 
@@ -76,11 +76,17 @@ class Perception {
 
     for (var auArr of actionUnits) {
       let bitArray = auArr.map((val, index)=>{
-          return this.actionUnitThresholds[index] < val;
+          return this.actionUnitThresholds[index] < val ? '1' : '0' ;
       })
-      console.log(bitArray);
-      //this.windowMap[this.bitArrayToInt(bitArray)] += 1;
+      let cKey = this.bitArrayToInt(bitArray);
+
+      let map = this.windowMap;
+      if(cKey in map){
+        map[cKey] = map[cKey] + 1;
+      }
     }
+
+    console.log(this.windowMap);
 
   }
 
@@ -96,6 +102,15 @@ class Perception {
 
   // Function to get VSP Assessment depending on events collected from SP.
   computeVSPAssessment() {}
+
+
+  getClosestExpression(cKey) {
+    let keys = Object.keys(this.windowMap);
+    let diff = [];
+    for(const expKey in keys){
+      diff.push(Math.abs(expKey - cKey));
+    }
+  }
 
   bitArrayToInt(arr) {
     let bitstring = "";
